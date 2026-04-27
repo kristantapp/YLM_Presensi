@@ -58,53 +58,42 @@
  </head>
  <body class="h-full">
   <main class="h-full w-full flex items-center justify-center p-4">
-   <div class="w-full max-w-md">
-    <!-- Header -->
+   <div class="w-full max-w-md"><!-- Header -->
     <header class="text-center mb-6 fade-in">
-     <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl glass mb-3">
-      <i data-lucide="fingerprint" class="w-7 h-7 text-indigo-300"></i>
+     <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl glass mb-3"><i data-lucide="fingerprint" class="w-7 h-7 text-indigo-300"></i>
      </div>
      <h1 class="text-2xl font-extrabold tracking-tight">Presensi Pegawai</h1>
      <p class="text-xs text-slate-400 mt-1">Absensi berbasis lokasi &amp; selfie</p>
     </header><!-- Setup URL Screen -->
     <section id="setup-screen" class="glass rounded-3xl p-6 fade-in tab-hidden">
-     <div class="flex items-center gap-2 mb-4">
-      <i data-lucide="settings-2" class="w-5 h-5 text-amber-300"></i>
+     <div class="flex items-center gap-2 mb-4"><i data-lucide="settings-2" class="w-5 h-5 text-amber-300"></i>
       <h2 class="font-bold">Konfigurasi Awal</h2>
      </div>
      <p class="text-xs text-slate-400 mb-4">Masukkan URL Google Apps Script Web App Anda (hanya sekali).</p><label for="gas-url" class="block text-xs text-slate-300 mb-1">URL Web App</label> <input id="gas-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-3 py-2.5 text-sm mono placeholder-slate-600"> <button id="save-url-btn" class="btn-primary w-full mt-4 rounded-xl py-3 font-semibold text-sm"> Simpan &amp; Lanjutkan </button>
-     <details class="mt-4 text-xs text-slate-400">
-      <summary class="cursor-pointer hover:text-slate-200">Butuh kode Google Apps Script?</summary>
+     <details class="mt-4 text-xs text-slate-400"><summary class="cursor-pointer hover:text-slate-200">Butuh kode Google Apps Script?</summary>
       <p class="mt-2 leading-relaxed">Buka Extensions → Apps Script di spreadsheet Anda, paste kode yang diberikan, lalu Deploy → New deployment → Web app, akses "Anyone".</p>
      </details>
     </section><!-- Login Screen -->
     <section id="login-screen" class="glass rounded-3xl p-6 fade-in tab-hidden">
-     <div class="flex items-center gap-2 mb-5">
-      <i data-lucide="log-in" class="w-5 h-5 text-indigo-300"></i>
+     <div class="flex items-center gap-2 mb-5"><i data-lucide="log-in" class="w-5 h-5 text-indigo-300"></i>
       <h2 class="font-bold">Masuk</h2>
      </div>
      <form id="login-form" class="space-y-3">
-      <div>
-       <label for="username" class="block text-xs text-slate-300 mb-1">Username</label>
-       <div class="relative">
-        <i data-lucide="user" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i> <input id="username" type="text" required autocomplete="username" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm">
+      <div><label for="username" class="block text-xs text-slate-300 mb-1">Username</label>
+       <div class="relative"><i data-lucide="user" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i> <input id="username" type="text" required autocomplete="username" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm">
        </div>
       </div>
-      <div>
-       <label for="password" class="block text-xs text-slate-300 mb-1">Password</label>
-       <div class="relative">
-        <i data-lucide="lock" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i> <input id="password" type="password" required autocomplete="current-password" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm">
+      <div><label for="password" class="block text-xs text-slate-300 mb-1">Password</label>
+       <div class="relative"><i data-lucide="lock" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i> <input id="password" type="password" required autocomplete="current-password" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm">
        </div>
       </div><button id="login-btn" type="submit" class="btn-primary w-full rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <span id="login-label">Masuk</span> <i data-lucide="loader-2" id="login-spin" class="w-4 h-4 spin hidden"></i> </button>
      </form><button id="reset-url-btn" class="mt-4 text-xs text-slate-500 hover:text-slate-300 w-full text-center"> Ganti URL Server </button>
     </section><!-- Dashboard Screen -->
-    <section id="dashboard-screen" class="fade-in tab-hidden">
-     <!-- User card -->
+    <section id="dashboard-screen" class="fade-in tab-hidden"><!-- User card -->
      <div class="glass rounded-3xl p-5 mb-4">
       <div class="flex items-start justify-between">
        <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center font-bold">
-         <span id="user-initial">-</span>
+        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center font-bold"><span id="user-initial">-</span>
         </div>
         <div>
          <div id="user-name" class="font-bold text-sm">
@@ -116,19 +105,16 @@
         </div>
        </div><button id="logout-btn" class="text-slate-400 hover:text-rose-400 p-1" aria-label="Keluar"> <i data-lucide="log-out" class="w-4 h-4"></i> </button>
       </div>
-      <div class="mt-3 pt-3 border-t border-slate-700/50 flex items-center gap-2 text-xs text-slate-300">
-       <i data-lucide="school" class="w-3.5 h-3.5 text-emerald-300"></i> <span id="user-school">-</span>
+      <div class="mt-3 pt-3 border-t border-slate-700/50 flex items-center gap-2 text-xs text-slate-300"><i data-lucide="school" class="w-3.5 h-3.5 text-emerald-300"></i> <span id="user-school">-</span>
       </div>
      </div><!-- Location card -->
      <div class="glass rounded-3xl p-5 mb-4">
       <div class="flex items-center justify-between mb-3">
-       <div class="flex items-center gap-2">
-        <i data-lucide="map-pin" class="w-4 h-4 text-emerald-300"></i>
+       <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-emerald-300"></i>
         <h3 class="font-bold text-sm">Verifikasi Lokasi</h3>
        </div><button id="refresh-loc-btn" class="text-xs text-indigo-300 hover:text-indigo-200 flex items-center gap-1"> <i data-lucide="refresh-cw" class="w-3 h-3"></i> Perbarui </button>
       </div>
-      <div id="loc-status" class="flex items-center gap-2 text-sm">
-       <span class="w-2 h-2 rounded-full bg-slate-500 pulse-dot"></span> <span class="text-slate-400">Mengambil lokasi...</span>
+      <div id="loc-status" class="flex items-center gap-2 text-sm"><span class="w-2 h-2 rounded-full bg-slate-500 pulse-dot"></span> <span class="text-slate-400">Mengambil lokasi...</span>
       </div>
       <div class="mt-3 grid grid-cols-2 gap-2 text-xs">
        <div class="bg-slate-900/50 rounded-lg p-2">
@@ -151,16 +137,14 @@
      </div><!-- Actions -->
      <div class="glass rounded-3xl p-5">
       <h3 class="font-bold text-sm mb-3 flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-300"></i> Pilih Jenis Presensi</h3>
-      <div class="grid grid-cols-2 gap-2.5">
-       <button data-action="Datang" class="action-btn bg-emerald-500/10 hover:bg-emerald-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="log-in" class="w-6 h-6 text-emerald-300"></i> <span class="text-xs font-semibold">Datang</span> </button> <button data-action="Ijin Keluar" class="action-btn bg-amber-500/10 hover:bg-amber-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="arrow-up-right" class="w-6 h-6 text-amber-300"></i> <span class="text-xs font-semibold">Ijin Keluar</span> </button> <button data-action="Datang Kembali" class="action-btn bg-sky-500/10 hover:bg-sky-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="arrow-down-left" class="w-6 h-6 text-sky-300"></i> <span class="text-xs font-semibold">Datang Kembali</span> </button> <button data-action="Pulang" class="action-btn bg-rose-500/10 hover:bg-rose-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="log-out" class="w-6 h-6 text-rose-300"></i> <span class="text-xs font-semibold">Pulang</span> </button>
+      <div class="grid grid-cols-2 gap-2.5"><button data-action="Datang" class="action-btn bg-emerald-500/10 hover:bg-emerald-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="log-in" class="w-6 h-6 text-emerald-300"></i> <span class="text-xs font-semibold">Datang</span> </button> <button data-action="Ijin Keluar" class="action-btn bg-amber-500/10 hover:bg-amber-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="arrow-up-right" class="w-6 h-6 text-amber-300"></i> <span class="text-xs font-semibold">Ijin Keluar</span> </button> <button data-action="Datang Kembali" class="action-btn bg-sky-500/10 hover:bg-sky-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="arrow-down-left" class="w-6 h-6 text-sky-300"></i> <span class="text-xs font-semibold">Datang Kembali</span> </button> <button data-action="Pulang" class="action-btn bg-rose-500/10 hover:bg-rose-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="log-out" class="w-6 h-6 text-rose-300"></i> <span class="text-xs font-semibold">Pulang</span> </button>
       </div>
      </div>
      <p class="text-center text-xs text-slate-500 mt-4 mono" id="current-time">--:--:--</p>
     </section><!-- Selfie Screen -->
     <section id="selfie-screen" class="glass rounded-3xl p-5 fade-in tab-hidden">
      <div class="flex items-center justify-between mb-4">
-      <div class="flex items-center gap-2">
-       <i data-lucide="camera" class="w-5 h-5 text-indigo-300"></i>
+      <div class="flex items-center gap-2"><i data-lucide="camera" class="w-5 h-5 text-indigo-300"></i>
        <h2 class="font-bold">Ambil Selfie</h2>
       </div><button id="cancel-selfie-btn" class="text-slate-400 hover:text-white p-1"> <i data-lucide="x" class="w-5 h-5"></i> </button>
      </div>
@@ -174,20 +158,20 @@
        Memuat kamera...
       </div>
      </div>
-     <div class="flex gap-2 mt-4">
-      <button id="capture-btn" class="btn-primary flex-1 rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <i data-lucide="aperture" class="w-4 h-4"></i> Ambil Foto </button> <button id="retake-btn" class="hidden flex-1 bg-slate-700 hover:bg-slate-600 rounded-xl py-3 font-semibold text-sm"> Ulangi </button> <button id="submit-btn" class="hidden btn-primary flex-1 rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <span id="submit-label">Kirim Presensi</span> <i data-lucide="loader-2" id="submit-spin" class="w-4 h-4 spin hidden"></i> </button>
+     <div class="flex gap-2 mt-4"><button id="capture-btn" class="btn-primary flex-1 rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <i data-lucide="aperture" class="w-4 h-4"></i> Ambil Foto </button> <button id="retake-btn" class="hidden flex-1 bg-slate-700 hover:bg-slate-600 rounded-xl py-3 font-semibold text-sm"> Ulangi </button> <button id="submit-btn" class="hidden btn-primary flex-1 rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <span id="submit-label">Kirim Presensi</span> <i data-lucide="loader-2" id="submit-spin" class="w-4 h-4 spin hidden"></i> </button>
      </div>
     </section><!-- Success Screen -->
     <section id="success-screen" class="glass rounded-3xl p-8 text-center fade-in tab-hidden">
-     <div class="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
-      <i data-lucide="check" class="w-8 h-8 text-emerald-300"></i>
+     <div class="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4"><i data-lucide="check" class="w-8 h-8 text-emerald-300"></i>
      </div>
      <h2 class="text-xl font-bold mb-1">Presensi Berhasil!</h2>
      <p class="text-sm text-slate-400 mb-5" id="success-msg">Data Anda telah tersimpan.</p>
      <div class="bg-slate-900/50 rounded-xl p-3 text-left text-xs space-y-1 mb-5 mono">
-      <div><span class="text-slate-500">Status:</span> <span id="sum-status"></span>
+      <div>
+       <span class="text-slate-500">Status:</span> <span id="sum-status"></span>
       </div>
-      <div><span class="text-slate-500">Waktu:</span> <span id="sum-time"></span>
+      <div>
+       <span class="text-slate-500">Waktu:</span> <span id="sum-time"></span>
       </div>
      </div><button id="done-btn" class="btn-primary w-full rounded-xl py-3 font-semibold text-sm">Selesai</button>
     </section>
@@ -270,13 +254,25 @@ function saveAbsen(d) {
   const sheet = ss.getSheetByName('Absensi');
   // Upload foto
   let photoUrl = '';
+  let photoError = '';
   if (d.photoBase64) {
-    const folder = getOrCreateFolder();
-    const blob = Utilities.newBlob(Utilities.base64Decode(d.photoBase64), 'image/jpeg',
-      d.idPegawai + '_' + d.status + '_' + new Date().getTime() + '.jpg');
-    const file = folder.createFile(blob);
-    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-    photoUrl = 'https://drive.google.com/uc?id=' + file.getId();
+    try {
+      // Cek apakah base64 valid
+      if (!d.photoBase64 || d.photoBase64.length === 0) {
+        throw new Error('Photo base64 kosong');
+      }
+      const folder = getOrCreateFolder();
+      const fileName = d.idPegawai + '_' + d.status + '_' + new Date().getTime() + '.jpg';
+      const decodedData = Utilities.base64Decode(d.photoBase64);
+      const blob = Utilities.newBlob(decodedData, 'image/jpeg', fileName);
+      const file = folder.createFile(blob);
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      photoUrl = 'https://drive.google.com/uc?id=' + file.getId();
+      Logger.log('Foto berhasil disimpan: ' + photoUrl);
+    } catch(err) {
+      photoError = 'Foto upload gagal: ' + err.toString();
+      Logger.log(photoError);
+    }
   }
   const now = new Date();
   sheet.appendRow([
@@ -286,7 +282,12 @@ function saveAbsen(d) {
     Utilities.formatDate(now, Session.getScriptTimeZone(), 'HH:mm:ss'),
     d.latitude, d.longitude, photoUrl
   ]);
-  return {ok:true, message:'Presensi tersimpan', photoUrl: photoUrl};
+  return {
+    ok: true, 
+    message: 'Presensi tersimpan' + (photoError ? ' (foto: ' + photoError + ')' : ''),
+    photoUrl: photoUrl,
+    photoError: photoError
+  };
 }`;
 
 // ---------- State ----------
@@ -430,7 +431,16 @@ function updateLocation() {
         setLocStatus('error','Data sekolah tidak tersedia');
         return;
       }
-      const dist = haversine(state.location.lat, state.location.lng, state.sekolah.latitude, state.sekolah.longitude);
+      // Validasi data sekolah
+      const sLat = Number(state.sekolah.latitude);
+      const sLng = Number(state.sekolah.longitude);
+      if (isNaN(sLat) || isNaN(sLng)) {
+        setLocStatus('error',`Koordinat sekolah invalid: ${sLat}, ${sLng}`);
+        toast('Koordinat sekolah tidak valid. Hubungi admin.', 'error');
+        console.error('Invalid school coords:', state.sekolah);
+        return;
+      }
+      const dist = haversine(state.location.lat, state.location.lng, sLat, sLng);
       state.inRadius = dist <= state.sekolah.radiusMeters;
       $('loc-distance').textContent = dist < 1000 ? `${dist.toFixed(0)} m` : `${(dist/1000).toFixed(2)} km`;
       $('loc-accuracy').textContent = `±${pos.coords.accuracy.toFixed(0)} m`;
@@ -510,8 +520,10 @@ $('capture-btn').addEventListener('click', () => {
   ctx.translate(size, 0); ctx.scale(-1,1);
   ctx.drawImage(v, sx, sy, size, size, 0, 0, size, size);
   ctx.restore();
-  const dataUrl = c.toDataURL('image/jpeg', 0.82);
+  // Kompres lebih agresif: 0.65 quality, ukuran lebih kecil
+  const dataUrl = c.toDataURL('image/jpeg', 0.65);
   state.photoBase64 = dataUrl.split(',')[1];
+  console.log('Photo base64 length:', state.photoBase64.length);
   $('video').classList.add('hidden');
   $('canvas').classList.remove('hidden');
   $('capture-btn').classList.add('hidden');
@@ -524,9 +536,17 @@ $('retake-btn').addEventListener('click', openCamera);
 
 $('submit-btn').addEventListener('click', async () => {
   if (!state.photoBase64 || !state.location) { toast('Data belum lengkap', 'error'); return; }
+  
+  // Validasi base64 sebelum kirim
+  if (state.photoBase64.length === 0) {
+    toast('Foto kosong, silakan ambil ulang', 'error');
+    return;
+  }
+  
   $('submit-spin').classList.remove('hidden');
   $('submit-label').textContent = 'Mengirim...';
   $('submit-btn').disabled = true;
+  
   const payload = {
     action: 'absen',
     idPegawai: state.pegawai.idPegawai,
@@ -539,6 +559,9 @@ $('submit-btn').addEventListener('click', async () => {
     longitude: state.location.lng,
     photoBase64: state.photoBase64
   };
+  
+  console.log('Sending payload with photo size:', state.photoBase64.length);
+  
   try {
     // Use text/plain to avoid CORS preflight on Apps Script
     const res = await fetch(state.gasUrl, {
@@ -546,16 +569,35 @@ $('submit-btn').addEventListener('click', async () => {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     });
+    
+    if (!res.ok) {
+      toast(`Server error: ${res.status}`, 'error');
+      console.error('HTTP error:', res.status, res.statusText);
+      throw new Error(`HTTP ${res.status}`);
+    }
+    
     const data = await res.json();
+    console.log('Response from server:', data);
+    
     if (data.ok) {
       $('sum-status').textContent = state.currentAction;
       $('sum-time').textContent = new Date().toLocaleString('id-ID');
       showScreen('success-screen');
+      
+      if (data.photoUrl) {
+        toast('✓ Presensi & foto berhasil disimpan!', 'success');
+      } else if (data.photoError) {
+        toast('⚠ Presensi tercatat, tapi foto gagal: ' + data.photoError, 'warn');
+      } else {
+        toast('Presensi tercatat', 'success');
+      }
     } else {
-      toast(data.message || 'Gagal mengirim', 'error');
+      toast(data.message || 'Gagal mengirim presensi', 'error');
+      console.error('Server error:', data);
     }
   } catch(err) {
-    toast('Gagal terhubung ke server', 'error');
+    toast('❌ Gagal terhubung ke server. Periksa URL & koneksi.', 'error');
+    console.error('Fetch error:', err);
   } finally {
     $('submit-spin').classList.add('hidden');
     $('submit-label').textContent = 'Kirim Presensi';
@@ -593,5 +635,5 @@ window.elementSdk && window.elementSdk.init({
 
 init();
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2c04fa84e1ff7e',t:'MTc3NzI3Mzk1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2c3c0337e3fd7d',t:'MTc3NzI3NjIwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
