@@ -468,7 +468,7 @@
   </div>
   <script>
         // ===== KONFIGURASI =====
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwiQE8cankjRT_u_n9zGREELl-mOgrOpKc1zOz-xAy7Dtb8IgzAQfIV1OI2TanAJ05r/exec';
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbyXCrdqLFQJluPynIw1lYA2-j_xzFU6cOh8Lpx4cytp4fIjjCsQDK4WtvL_ygoI-tsP/exec';
         
         // ===== STATE MANAGEMENT =====
         let currentUser = null;
@@ -695,6 +695,7 @@
         // ===== ATTENDANCE =====
         async function submitAttendance() {
             const attendanceType = document.getElementById('attendanceType').value;
+            const submitBtn = event.target;
 
             if (!attendanceType) {
                 showAlert('attendanceAlert', 'Pilih tipe absensi terlebih dahulu', 'danger');
@@ -725,43 +726,78 @@
                 return;
             }
 
+            // Show loading state
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Mengirim...';
+
             try {
-                const formData = new FormData();
-                formData.append('action', 'submitAttendance');
-                formData.append('idPegawai', currentUser.id_pegawai);
-                formData.append('namaPegawai', currentUser.nama_pegawai);
-                formData.append('jabatan', currentUser.jabatan);
-                formData.append('idSekolah', currentUser.id_sekolah);
-                formData.append('namaSekolah', currentSchool.nama_sekolah);
-                formData.append('status', attendanceType);
-                formData.append('latitude', userLocation.lat);
-                formData.append('longitude', userLocation.lon);
-                formData.append('tanggal', new Date().toISOString().split('T')[0]);
-                formData.append('waktu', new Date().toTimeString().split(' ')[0]);
-                formData.append('photo', photoBlob, 'selfie.jpg');
+                // Convert blob to base64
+                const reader = new FileReader();
+                reader.readAsDataURL(photoBlob);
+                
+                reader.onload = async function() {
+                    const photoBase64 = reader.result;
+                    const attendanceData = {
+                        action: 'submitAttendance',
+                        idPegawai: currentUser.id_pegawai,
+                        namaPegawai: currentUser.nama_pegawai,
+                        jabatan: currentUser.jabatan,
+                        idSekolah: currentUser.id_sekolah,
+                        namaSekolah: currentSchool.nama_sekolah,
+                        status: attendanceType,
+                        latitude: userLocation.lat,
+                        longitude: userLocation.lon,
+                        tanggal: new Date().toISOString().split('T')[0],
+                        waktu: new Date().toTimeString().split(' ')[0],
+                        photo: photoBase64
+                    };
 
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    body: formData
-                });
+                    console.log('Mengirim data ke:', GAS_URL);
+                    console.log('Data keys:', Object.keys(attendanceData));
 
-                const data = await response.json();
+                    try {
+                        const response = await fetch(GAS_URL, {
+                            method: 'POST',
+                            body: JSON.stringify(attendanceData)
+                        });
 
-                if (data.success) {
-                    showAlert('attendanceAlert', `Absensi ${attendanceType} berhasil dikirim!`, 'success');
-                    photoCaptured = false;
-                    photoBlob = null;
-                    document.getElementById('attendanceType').value = '';
-                    document.getElementById('photoPreview').classList.remove('active');
-                    document.getElementById('retakeBtn').style.display = 'none';
-                    setTimeout(() => {
-                        goToHistory();
-                    }, 1500);
-                } else {
-                    showAlert('attendanceAlert', data.message || 'Gagal mengirim absensi', 'danger');
-                }
+                        console.log('Response status:', response.status);
+                        const data = await response.json();
+                        console.log('Response data:', data);
+
+                        if (data.success) {
+                            showAlert('attendanceAlert', `Absensi ${attendanceType} berhasil dikirim!`, 'success');
+                            photoCaptured = false;
+                            photoBlob = null;
+                            document.getElementById('attendanceType').value = '';
+                            document.getElementById('photoPreview').classList.remove('active');
+                            document.getElementById('retakeBtn').style.display = 'none';
+                            setTimeout(() => {
+                                goToHistory();
+                            }, 1500);
+                        } else {
+                            showAlert('attendanceAlert', data.message || 'Gagal mengirim absensi', 'danger');
+                        }
+                    } catch (error) {
+                        console.error('Fetch error detail:', error);
+                        showAlert('attendanceAlert', `Error: ${error.message}`, 'danger');
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }
+                };
+
+                reader.onerror = function() {
+                    showAlert('attendanceAlert', 'Error mengkonversi foto', 'danger');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                };
             } catch (error) {
+                console.error('Error detail:', error);
                 showAlert('attendanceAlert', `Error: ${error.message}`, 'danger');
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
         }
 
@@ -853,5 +889,5 @@
             };
         });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2b412d07b85c2d',t:'MTc3NzI2NTkzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2b71ee90f97b14',t:'MTc3NzI2NzkyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
