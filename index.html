@@ -1,893 +1,597 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="h-full">
  <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Absensi - Yayasan Lembaga Miryam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Presensi Pegawai</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
   <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            width: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #001f3f 0%, #0047ab 100%);
-        }
-
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 100%;
-            overflow: hidden;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header {
-            background: linear-gradient(135deg, #0047ab 0%, #001f3f 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 30px 20px;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #001f3f;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        input[type="date"],
-        input[type="time"],
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus,
-        input[type="email"]:focus,
-        input[type="date"]:focus,
-        input[type="time"]:focus,
-        select:focus {
-            outline: none;
-            border-color: #0047ab;
-            box-shadow: 0 0 0 3px rgba(0, 71, 171, 0.1);
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #0047ab 0%, #003d82 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 71, 171, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
-            margin-top: 10px;
-        }
-
-        .btn-secondary:hover {
-            box-shadow: 0 10px 25px rgba(108, 117, 125, 0.3);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
-        }
-
-        .btn-success:hover {
-            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        }
-
-        .btn-danger:hover {
-            box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3);
-        }
-
-        .btn-small {
-            padding: 8px 12px;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        .alert {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .alert.show {
-            display: block;
-        }
-
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
-        }
-
-        .alert-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #0047ab;
-        }
-
-        .alert-warning {
-            background: #fff3cd;
-            color: #856404;
-            border-left: 4px solid #ffc107;
-        }
-
-        .location-status {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .location-status.allowed {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .location-status.not-allowed {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .location-status.loading {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-
-        .status-icon {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .camera-preview {
-            width: 100%;
-            border-radius: 12px;
-            margin: 15px 0;
-            background: #000;
-            display: none;
-        }
-
-        .camera-preview.active {
-            display: block;
-        }
-
-        .photo-preview {
-            width: 100%;
-            border-radius: 12px;
-            margin: 15px 0;
-            display: none;
-            border: 2px solid #0047ab;
-        }
-
-        .photo-preview.active {
-            display: block;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .button-group button {
-            flex: 1;
-            margin-top: 0;
-        }
-
-        .user-info {
-            background: linear-gradient(135deg, #0047ab15 0%, #003d8215 100%);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #0047ab;
-        }
-
-        .user-info p {
-            margin: 5px 0;
-            color: #001f3f;
-            font-size: 14px;
-        }
-
-        .user-info strong {
-            color: #0047ab;
-        }
-
-        .attendance-record {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-left: 4px solid #0047ab;
-        }
-
-        .attendance-record h4 {
-            color: #001f3f;
-            margin-bottom: 8px;
-            font-size: 15px;
-        }
-
-        .attendance-record p {
-            color: #555;
-            font-size: 13px;
-            margin: 4px 0;
-        }
-
-        .attendance-record .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-
-        .status-badge.hadir {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-badge.pulang {
-            background: #cfe2ff;
-            color: #084298;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #0047ab;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            text-align: center;
-            color: #0047ab;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-
-        .school-selector {
-            background: linear-gradient(135deg, #f0f4f915 0%, #e8ecf015 100%);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #e0e0e0;
-        }
-
-        .school-selector h3 {
-            color: #001f3f;
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-
-        .school-info {
-            background: white;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 10px;
-            border-left: 3px solid #0047ab;
-        }
-
-        .school-info p {
-            color: #555;
-            font-size: 13px;
-            margin: 4px 0;
-        }
-
-        .school-info strong {
-            color: #0047ab;
-        }
-
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .content {
-                padding: 20px 15px;
-            }
-
-            button {
-                padding: 12px;
-                font-size: 15px;
-            }
-        }
-    </style>
+  html, body { height: 100%; width: 100%; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background:
+      radial-gradient(circle at 10% 10%, rgba(99,102,241,0.15), transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(16,185,129,0.15), transparent 40%),
+      linear-gradient(180deg,#0b1020 0%, #0f172a 100%);
+    color: #e5e7eb;
+    overflow: auto;
+  }
+  .glass {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .btn-primary {
+    background: linear-gradient(135deg,#6366f1,#8b5cf6);
+    transition: transform .15s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px -10px rgba(139,92,246,.6); }
+  .btn-primary:active { transform: translateY(0); }
+  .action-btn {
+    transition: all .2s ease;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .action-btn:hover:not(:disabled) { transform: translateY(-2px); border-color: rgba(255,255,255,0.2); }
+  .action-btn:disabled { opacity: .35; cursor: not-allowed; }
+  .spin { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg);} }
+  .pulse-dot { animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.3);} }
+  .fade-in { animation: fadeIn .4s ease both; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px);} to { opacity:1; transform:none;} }
+  video, canvas { transform: scaleX(-1); }
+  .toast {
+    animation: slideDown .3s ease, fadeOut .3s ease 2.7s forwards;
+  }
+  @keyframes slideDown { from {opacity:0; transform: translateY(-20px);} to {opacity:1; transform:none;} }
+  @keyframes fadeOut { to { opacity:0; transform: translateY(-20px);} }
+  input:focus { outline: none; }
+  .tab-hidden { display: none; }
+</style>
   <style>body { box-sizing: border-box; }</style>
-  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
  </head>
- <body>
-  <div class="container">
-   <div class="header">
-    <h1>📍 Absensi Pegawai</h1>
-    <p>Yayasan Lembaga Miryam</p>
+ <body class="h-full">
+  <main class="h-full w-full flex items-center justify-center p-4">
+   <div class="w-full max-w-md">
+    <!-- Header -->
+    <header class="text-center mb-6 fade-in">
+     <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl glass mb-3">
+      <i data-lucide="fingerprint" class="w-7 h-7 text-indigo-300"></i>
+     </div>
+     <h1 class="text-2xl font-extrabold tracking-tight">Presensi Pegawai</h1>
+     <p class="text-xs text-slate-400 mt-1">Absensi berbasis lokasi &amp; selfie</p>
+    </header><!-- Setup URL Screen -->
+    <section id="setup-screen" class="glass rounded-3xl p-6 fade-in tab-hidden">
+     <div class="flex items-center gap-2 mb-4">
+      <i data-lucide="settings-2" class="w-5 h-5 text-amber-300"></i>
+      <h2 class="font-bold">Konfigurasi Awal</h2>
+     </div>
+     <p class="text-xs text-slate-400 mb-4">Masukkan URL Google Apps Script Web App Anda (hanya sekali).</p><label for="gas-url" class="block text-xs text-slate-300 mb-1">URL Web App</label> <input id="gas-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-3 py-2.5 text-sm mono placeholder-slate-600"> <button id="save-url-btn" class="btn-primary w-full mt-4 rounded-xl py-3 font-semibold text-sm"> Simpan &amp; Lanjutkan </button>
+     <details class="mt-4 text-xs text-slate-400">
+      <summary class="cursor-pointer hover:text-slate-200">Butuh kode Google Apps Script?</summary>
+      <p class="mt-2 leading-relaxed">Buka Extensions → Apps Script di spreadsheet Anda, paste kode yang diberikan, lalu Deploy → New deployment → Web app, akses "Anyone".</p>
+     </details>
+    </section><!-- Login Screen -->
+    <section id="login-screen" class="glass rounded-3xl p-6 fade-in tab-hidden">
+     <div class="flex items-center gap-2 mb-5">
+      <i data-lucide="log-in" class="w-5 h-5 text-indigo-300"></i>
+      <h2 class="font-bold">Masuk</h2>
+     </div>
+     <form id="login-form" class="space-y-3">
+      <div>
+       <label for="username" class="block text-xs text-slate-300 mb-1">Username</label>
+       <div class="relative">
+        <i data-lucide="user" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i> <input id="username" type="text" required autocomplete="username" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm">
+       </div>
+      </div>
+      <div>
+       <label for="password" class="block text-xs text-slate-300 mb-1">Password</label>
+       <div class="relative">
+        <i data-lucide="lock" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i> <input id="password" type="password" required autocomplete="current-password" class="w-full bg-slate-900/60 border border-slate-700 rounded-xl pl-9 pr-3 py-2.5 text-sm">
+       </div>
+      </div><button id="login-btn" type="submit" class="btn-primary w-full rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <span id="login-label">Masuk</span> <i data-lucide="loader-2" id="login-spin" class="w-4 h-4 spin hidden"></i> </button>
+     </form><button id="reset-url-btn" class="mt-4 text-xs text-slate-500 hover:text-slate-300 w-full text-center"> Ganti URL Server </button>
+    </section><!-- Dashboard Screen -->
+    <section id="dashboard-screen" class="fade-in tab-hidden">
+     <!-- User card -->
+     <div class="glass rounded-3xl p-5 mb-4">
+      <div class="flex items-start justify-between">
+       <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center font-bold">
+         <span id="user-initial">-</span>
+        </div>
+        <div>
+         <div id="user-name" class="font-bold text-sm">
+          -
+         </div>
+         <div id="user-role" class="text-xs text-slate-400">
+          -
+         </div>
+        </div>
+       </div><button id="logout-btn" class="text-slate-400 hover:text-rose-400 p-1" aria-label="Keluar"> <i data-lucide="log-out" class="w-4 h-4"></i> </button>
+      </div>
+      <div class="mt-3 pt-3 border-t border-slate-700/50 flex items-center gap-2 text-xs text-slate-300">
+       <i data-lucide="school" class="w-3.5 h-3.5 text-emerald-300"></i> <span id="user-school">-</span>
+      </div>
+     </div><!-- Location card -->
+     <div class="glass rounded-3xl p-5 mb-4">
+      <div class="flex items-center justify-between mb-3">
+       <div class="flex items-center gap-2">
+        <i data-lucide="map-pin" class="w-4 h-4 text-emerald-300"></i>
+        <h3 class="font-bold text-sm">Verifikasi Lokasi</h3>
+       </div><button id="refresh-loc-btn" class="text-xs text-indigo-300 hover:text-indigo-200 flex items-center gap-1"> <i data-lucide="refresh-cw" class="w-3 h-3"></i> Perbarui </button>
+      </div>
+      <div id="loc-status" class="flex items-center gap-2 text-sm">
+       <span class="w-2 h-2 rounded-full bg-slate-500 pulse-dot"></span> <span class="text-slate-400">Mengambil lokasi...</span>
+      </div>
+      <div class="mt-3 grid grid-cols-2 gap-2 text-xs">
+       <div class="bg-slate-900/50 rounded-lg p-2">
+        <div class="text-slate-500">
+         Jarak
+        </div>
+        <div id="loc-distance" class="mono font-semibold mt-0.5">
+         -
+        </div>
+       </div>
+       <div class="bg-slate-900/50 rounded-lg p-2">
+        <div class="text-slate-500">
+         Akurasi
+        </div>
+        <div id="loc-accuracy" class="mono font-semibold mt-0.5">
+         -
+        </div>
+       </div>
+      </div>
+     </div><!-- Actions -->
+     <div class="glass rounded-3xl p-5">
+      <h3 class="font-bold text-sm mb-3 flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-300"></i> Pilih Jenis Presensi</h3>
+      <div class="grid grid-cols-2 gap-2.5">
+       <button data-action="Datang" class="action-btn bg-emerald-500/10 hover:bg-emerald-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="log-in" class="w-6 h-6 text-emerald-300"></i> <span class="text-xs font-semibold">Datang</span> </button> <button data-action="Ijin Keluar" class="action-btn bg-amber-500/10 hover:bg-amber-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="arrow-up-right" class="w-6 h-6 text-amber-300"></i> <span class="text-xs font-semibold">Ijin Keluar</span> </button> <button data-action="Datang Kembali" class="action-btn bg-sky-500/10 hover:bg-sky-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="arrow-down-left" class="w-6 h-6 text-sky-300"></i> <span class="text-xs font-semibold">Datang Kembali</span> </button> <button data-action="Pulang" class="action-btn bg-rose-500/10 hover:bg-rose-500/20 rounded-2xl p-4 flex flex-col items-center gap-2" disabled> <i data-lucide="log-out" class="w-6 h-6 text-rose-300"></i> <span class="text-xs font-semibold">Pulang</span> </button>
+      </div>
+     </div>
+     <p class="text-center text-xs text-slate-500 mt-4 mono" id="current-time">--:--:--</p>
+    </section><!-- Selfie Screen -->
+    <section id="selfie-screen" class="glass rounded-3xl p-5 fade-in tab-hidden">
+     <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+       <i data-lucide="camera" class="w-5 h-5 text-indigo-300"></i>
+       <h2 class="font-bold">Ambil Selfie</h2>
+      </div><button id="cancel-selfie-btn" class="text-slate-400 hover:text-white p-1"> <i data-lucide="x" class="w-5 h-5"></i> </button>
+     </div>
+     <div id="selfie-action-label" class="text-center text-xs text-slate-400 mb-3">
+      -
+     </div>
+     <div class="relative rounded-2xl overflow-hidden bg-black aspect-square">
+      <video id="video" autoplay playsinline muted class="w-full h-full object-cover"></video>
+      <canvas id="canvas" class="w-full h-full object-cover hidden absolute inset-0"></canvas>
+      <div id="cam-overlay" class="absolute inset-0 flex items-center justify-center text-slate-400 text-xs bg-black/70">
+       Memuat kamera...
+      </div>
+     </div>
+     <div class="flex gap-2 mt-4">
+      <button id="capture-btn" class="btn-primary flex-1 rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <i data-lucide="aperture" class="w-4 h-4"></i> Ambil Foto </button> <button id="retake-btn" class="hidden flex-1 bg-slate-700 hover:bg-slate-600 rounded-xl py-3 font-semibold text-sm"> Ulangi </button> <button id="submit-btn" class="hidden btn-primary flex-1 rounded-xl py-3 font-semibold text-sm flex items-center justify-center gap-2"> <span id="submit-label">Kirim Presensi</span> <i data-lucide="loader-2" id="submit-spin" class="w-4 h-4 spin hidden"></i> </button>
+     </div>
+    </section><!-- Success Screen -->
+    <section id="success-screen" class="glass rounded-3xl p-8 text-center fade-in tab-hidden">
+     <div class="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+      <i data-lucide="check" class="w-8 h-8 text-emerald-300"></i>
+     </div>
+     <h2 class="text-xl font-bold mb-1">Presensi Berhasil!</h2>
+     <p class="text-sm text-slate-400 mb-5" id="success-msg">Data Anda telah tersimpan.</p>
+     <div class="bg-slate-900/50 rounded-xl p-3 text-left text-xs space-y-1 mb-5 mono">
+      <div><span class="text-slate-500">Status:</span> <span id="sum-status"></span>
+      </div>
+      <div><span class="text-slate-500">Waktu:</span> <span id="sum-time"></span>
+      </div>
+     </div><button id="done-btn" class="btn-primary w-full rounded-xl py-3 font-semibold text-sm">Selesai</button>
+    </section>
    </div>
-   <div class="content">
-    <!-- SECTION: LOGIN -->
-    <div class="section active" id="loginSection">
-     <div class="alert alert-danger" id="loginAlert"></div>
-     <div class="form-group">
-      <label>Username</label> <input type="text" id="loginUsername" placeholder="Masukkan username Anda">
-     </div>
-     <div class="form-group">
-      <label>Password</label> <input type="password" id="loginPassword" placeholder="Masukkan password Anda">
-     </div><button onclick="handleLogin()">Login</button>
-    </div><!-- SECTION: LOCATION CHECK -->
-    <div class="section" id="locationSection">
-     <div class="location-status loading" id="locationStatus">
-      <span class="status-icon">📍</span> <span id="locationStatusText">Mendeteksi lokasi Anda...</span>
-     </div>
-     <div class="school-selector">
-      <h3>Lokasi Sekolah</h3>
-      <div class="school-info" id="schoolInfo"></div>
-     </div><button class="btn-secondary" onclick="checkLocationAgain()">Periksa Ulang Lokasi</button> <button class="btn-secondary" onclick="handleLogout()">Logout</button>
-    </div><!-- SECTION: ATTENDANCE -->
-    <div class="section" id="attendanceSection">
-     <div class="alert alert-danger" id="attendanceAlert"></div>
-     <div class="user-info">
-      <p><strong>Nama:</strong> <span id="attendanceName"></span></p>
-      <p><strong>Jabatan:</strong> <span id="attendancePosition"></span></p>
-      <p><strong>Sekolah:</strong> <span id="attendanceSchool"></span></p>
-     </div>
-     <div class="form-group">
-      <label>Tipe Absensi</label> <select id="attendanceType"> <option value="">-- Pilih Tipe Absensi --</option> <option value="Hadir">Masuk Kerja (Hadir)</option> <option value="Pulang">Pulang Kerja (Pulang)</option> </select>
-     </div>
-     <div class="form-group">
-      <label>Ambil Foto Selfie</label>
-      <video id="cameraPreview" class="camera-preview"></video><img id="photoPreview" class="photo-preview"> <button type="button" class="btn-secondary" id="toggleCameraBtn" onclick="toggleCamera()">Buka Kamera</button> <button type="button" class="btn-secondary" onclick="capturePhoto()" style="display: none;" id="captureBtn">Ambil Foto</button> <button type="button" class="btn-secondary" onclick="retakePhoto()" style="display: none;" id="retakeBtn">Ambil Ulang</button>
-     </div><button class="btn-success" onclick="submitAttendance()">Kirim Absensi</button> <button class="btn-secondary" onclick="goToHistory()">Riwayat Absensi</button> <button class="btn-secondary" onclick="handleLogout()">Logout</button>
-    </div><!-- SECTION: HISTORY -->
-    <div class="section" id="historySection">
-     <div class="alert alert-info" id="historyInfo"></div>
-     <div id="attendanceHistory"></div><button class="btn-secondary" onclick="goToAttendance()">Kembali ke Absensi</button>
+  </main><!-- Toast -->
+  <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div><!-- Google Apps Script template modal -->
+  <div id="gas-template-modal" class="fixed inset-0 bg-black/70 z-40 hidden items-center justify-center p-4">
+   <div class="glass rounded-2xl max-w-2xl w-full max-h-[85%] overflow-auto p-5">
+    <div class="flex items-center justify-between mb-3">
+     <h3 class="font-bold">Kode Google Apps Script</h3><button id="close-template" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
     </div>
+    <p class="text-xs text-slate-400 mb-3">Salin kode ini ke Extensions → Apps Script pada spreadsheet Anda, lalu Deploy sebagai Web App.</p>
+    <pre id="gas-code" class="text-xs mono bg-slate-900/80 rounded-lg p-3 overflow-auto whitespace-pre"></pre><button id="copy-code" class="btn-primary mt-3 rounded-xl px-4 py-2 text-sm font-semibold">Salin Kode</button>
    </div>
   </div>
   <script>
-        // ===== KONFIGURASI =====
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbyXCrdqLFQJluPynIw1lYA2-j_xzFU6cOh8Lpx4cytp4fIjjCsQDK4WtvL_ygoI-tsP/exec';
-        
-        // ===== STATE MANAGEMENT =====
-        let currentUser = null;
-        let currentSchool = null;
-        let userLocation = null;
-        let photoCaptured = false;
-        let photoBlob = null;
-        let stream = null;
+// ---------- Google Apps Script template (for user reference) ----------
+const GAS_TEMPLATE = `const SPREADSHEET_ID = '1QMMsWYH9RzPbGKb45OU9HT4xpY4LnwEL_EuLiAY0xuQ';
+const DRIVE_FOLDER_NAME = 'Presensi_Foto';
 
-        // ===== UTILITY FUNCTIONS =====
-        function showAlert(elementId, message, type = 'danger') {
-            const alertEl = document.getElementById(elementId);
-            alertEl.textContent = message;
-            alertEl.className = `alert alert-${type} show`;
-            setTimeout(() => {
-                alertEl.classList.remove('show');
-            }, 5000);
+function doGet(e) {
+  const action = e.parameter.action;
+  if (action === 'login') {
+    return jsonOut(login(e.parameter.username, e.parameter.password));
+  }
+  return jsonOut({ok:false, message:'Unknown action'});
+}
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    if (data.action === 'absen') return jsonOut(saveAbsen(data));
+    return jsonOut({ok:false, message:'Unknown action'});
+  } catch(err) {
+    return jsonOut({ok:false, message: err.toString()});
+  }
+}
+
+function jsonOut(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function login(username, password) {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const peg = ss.getSheetByName('Pegawai').getDataRange().getValues();
+  const sek = ss.getSheetByName('sekolah').getDataRange().getValues();
+  for (let i=1; i<peg.length; i++) {
+    if (String(peg[i][1]) === String(username) && String(peg[i][2]) === String(password)) {
+      const idSek = peg[i][5];
+      let sekData = null;
+      for (let j=1; j<sek.length; j++) {
+        if (String(sek[j][0]) === String(idSek)) {
+          sekData = {
+            idSekolah: sek[j][0], namaSekolah: sek[j][1],
+            latitude: Number(sek[j][2]), longitude: Number(sek[j][3]),
+            radiusMeters: Number(sek[j][4])
+          };
+          break;
         }
+      }
+      return {ok:true, pegawai:{
+        idPegawai: peg[i][0], username: peg[i][1],
+        namaPegawai: peg[i][3], jabatan: peg[i][4],
+        idSekolah: idSek
+      }, sekolah: sekData};
+    }
+  }
+  return {ok:false, message:'Username atau password salah'};
+}
 
-        function navigateTo(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-        }
+function getOrCreateFolder() {
+  const folders = DriveApp.getFoldersByName(DRIVE_FOLDER_NAME);
+  if (folders.hasNext()) return folders.next();
+  return DriveApp.createFolder(DRIVE_FOLDER_NAME);
+}
 
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371e3; // Earth radius in meters
-            const φ1 = (lat1 * Math.PI) / 180;
-            const φ2 = (lat2 * Math.PI) / 180;
-            const Δφ = ((lat2 - lat1) * Math.PI) / 180;
-            const Δλ = ((lon2 - lon1) * Math.PI) / 180;
-            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return R * c;
-        }
+function saveAbsen(d) {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = ss.getSheetByName('Absensi');
+  // Upload foto
+  let photoUrl = '';
+  if (d.photoBase64) {
+    const folder = getOrCreateFolder();
+    const blob = Utilities.newBlob(Utilities.base64Decode(d.photoBase64), 'image/jpeg',
+      d.idPegawai + '_' + d.status + '_' + new Date().getTime() + '.jpg');
+    const file = folder.createFile(blob);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    photoUrl = 'https://drive.google.com/uc?id=' + file.getId();
+  }
+  const now = new Date();
+  sheet.appendRow([
+    now, d.idPegawai, d.namaPegawai, d.jabatan,
+    d.idSekolah, d.namaSekolah, d.status,
+    Utilities.formatDate(now, Session.getScriptTimeZone(), 'yyyy-MM-dd'),
+    Utilities.formatDate(now, Session.getScriptTimeZone(), 'HH:mm:ss'),
+    d.latitude, d.longitude, photoUrl
+  ]);
+  return {ok:true, message:'Presensi tersimpan', photoUrl: photoUrl};
+}`;
 
-        // ===== GEOLOCATION =====
-        function getLocation() {
-            document.getElementById('locationStatusText').textContent = 'Mendeteksi lokasi Anda...';
-            document.getElementById('locationStatus').className = 'location-status loading';
+// ---------- State ----------
+const state = {
+  gasUrl: localStorage.getItem('gasUrl') || '',
+  pegawai: null,
+  sekolah: null,
+  location: null,
+  inRadius: false,
+  photoBase64: null,
+  currentAction: null,
+  stream: null,
+};
 
-            if (!navigator.geolocation) {
-                showAlert('attendanceAlert', 'Geolocation tidak didukung di browser Anda', 'danger');
-                return;
-            }
+// ---------- Helpers ----------
+const $ = id => document.getElementById(id);
+function showScreen(id) {
+  ['setup-screen','login-screen','dashboard-screen','selfie-screen','success-screen']
+    .forEach(s => $(s).classList.toggle('tab-hidden', s !== id));
+}
+function toast(msg, type='info') {
+  const colors = { info:'bg-slate-800', success:'bg-emerald-600', error:'bg-rose-600', warn:'bg-amber-600' };
+  const el = document.createElement('div');
+  el.className = `toast ${colors[type]} text-white text-sm px-4 py-2.5 rounded-xl shadow-xl pointer-events-auto max-w-xs text-center`;
+  el.textContent = msg;
+  $('toast-container').appendChild(el);
+  setTimeout(() => el.remove(), 3100);
+}
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = d => d * Math.PI/180;
+  const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
+}
 
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    userLocation = {
-                        lat: position.coords.latitude,
-                        lon: position.coords.longitude,
-                        accuracy: position.coords.accuracy
-                    };
-                    checkLocationValidity();
-                },
-                (error) => {
-                    showAlert('attendanceAlert', `Error mendapatkan lokasi: ${error.message}`, 'danger');
-                    document.getElementById('locationStatusText').textContent = 'Gagal mendeteksi lokasi';
-                    document.getElementById('locationStatus').className = 'location-status not-allowed';
-                }
-            );
-        }
+// ---------- Setup URL ----------
+$('save-url-btn').addEventListener('click', () => {
+  const url = $('gas-url').value.trim();
+  if (!url.startsWith('https://script.google.com/')) {
+    toast('URL tidak valid. Harus diawali https://script.google.com/', 'error');
+    return;
+  }
+  localStorage.setItem('gasUrl', url);
+  state.gasUrl = url;
+  showScreen('login-screen');
+});
+$('reset-url-btn').addEventListener('click', () => {
+  localStorage.removeItem('gasUrl');
+  state.gasUrl = '';
+  $('gas-url').value = '';
+  showScreen('setup-screen');
+});
 
-        function checkLocationValidity() {
-            if (!userLocation || !currentSchool) return;
+// GAS template modal
+document.addEventListener('click', e => {
+  if (e.target.closest('summary')) {
+    // show template
+    $('gas-code').textContent = GAS_TEMPLATE;
+    $('gas-template-modal').classList.remove('hidden');
+    $('gas-template-modal').classList.add('flex');
+  }
+});
+$('close-template').addEventListener('click', () => {
+  $('gas-template-modal').classList.add('hidden');
+  $('gas-template-modal').classList.remove('flex');
+});
+$('copy-code').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(GAS_TEMPLATE);
+    toast('Kode disalin!', 'success');
+  } catch { toast('Gagal menyalin', 'error'); }
+});
 
-            const distance = calculateDistance(
-                userLocation.lat,
-                userLocation.lon,
-                parseFloat(currentSchool.latitude),
-                parseFloat(currentSchool.longitude)
-            );
+// ---------- Login ----------
+$('login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const u = $('username').value.trim();
+  const p = $('password').value;
+  if (!u || !p) return;
+  $('login-spin').classList.remove('hidden');
+  $('login-label').textContent = 'Memverifikasi...';
+  $('login-btn').disabled = true;
+  try {
+    const url = `${state.gasUrl}?action=login&username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.ok) {
+      state.pegawai = data.pegawai;
+      state.sekolah = data.sekolah;
+      initDashboard();
+      showScreen('dashboard-screen');
+      startLocationWatch();
+    } else {
+      toast(data.message || 'Login gagal', 'error');
+    }
+  } catch(err) {
+    toast('Gagal terhubung ke server. Periksa URL.', 'error');
+  } finally {
+    $('login-spin').classList.add('hidden');
+    $('login-label').textContent = 'Masuk';
+    $('login-btn').disabled = false;
+  }
+});
 
-            const radiusMeters = parseFloat(currentSchool.radiusMeters) || 100;
-            const isInZone = distance <= radiusMeters;
+$('logout-btn').addEventListener('click', () => {
+  state.pegawai = null; state.sekolah = null; state.location = null;
+  $('password').value = '';
+  showScreen('login-screen');
+});
 
-            const statusEl = document.getElementById('locationStatus');
-            const statusText = document.getElementById('locationStatusText');
+// ---------- Dashboard ----------
+function initDashboard() {
+  const p = state.pegawai, s = state.sekolah;
+  $('user-name').textContent = p.namaPegawai;
+  $('user-role').textContent = p.jabatan;
+  $('user-initial').textContent = (p.namaPegawai||'?').charAt(0).toUpperCase();
+  $('user-school').textContent = s ? s.namaSekolah : 'Sekolah tidak ditemukan';
+}
 
-            if (isInZone) {
-                statusEl.className = 'location-status allowed';
-                statusText.textContent = `✓ Anda berada dalam zona absensi (${distance.toFixed(0)}m dari sekolah)`;
-                navigateTo('attendanceSection');
-            } else {
-                statusEl.className = 'location-status not-allowed';
-                statusText.textContent = `✗ Anda di luar zona absensi (${distance.toFixed(0)}m, batas: ${radiusMeters}m)`;
-                navigateTo('attendanceSection');
-            }
-        }
+function startLocationWatch() {
+  updateLocation();
+  setInterval(updateTime, 1000); updateTime();
+}
+function updateTime() {
+  const d = new Date();
+  $('current-time').textContent = d.toLocaleTimeString('id-ID');
+}
+$('refresh-loc-btn').addEventListener('click', updateLocation);
 
-        function checkLocationAgain() {
-            getLocation();
-        }
+function updateLocation() {
+  if (!navigator.geolocation) {
+    setLocStatus('error', 'Geolokasi tidak didukung');
+    return;
+  }
+  setLocStatus('loading', 'Mengambil lokasi...');
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      state.location = { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy };
+      if (!state.sekolah) {
+        setLocStatus('error','Data sekolah tidak tersedia');
+        return;
+      }
+      const dist = haversine(state.location.lat, state.location.lng, state.sekolah.latitude, state.sekolah.longitude);
+      state.inRadius = dist <= state.sekolah.radiusMeters;
+      $('loc-distance').textContent = dist < 1000 ? `${dist.toFixed(0)} m` : `${(dist/1000).toFixed(2)} km`;
+      $('loc-accuracy').textContent = `±${pos.coords.accuracy.toFixed(0)} m`;
+      if (state.inRadius) setLocStatus('ok', `Dalam radius (${state.sekolah.radiusMeters} m)`);
+      else setLocStatus('warn', `Di luar radius ${state.sekolah.radiusMeters} m`);
+      document.querySelectorAll('[data-action]').forEach(b => b.disabled = !state.inRadius);
+    },
+    err => {
+      setLocStatus('error', 'Izin lokasi ditolak');
+      toast('Mohon izinkan akses lokasi', 'error');
+    },
+    { enableHighAccuracy:true, timeout:15000, maximumAge:0 }
+  );
+}
+function setLocStatus(type, msg) {
+  const colors = { loading:'bg-slate-500', ok:'bg-emerald-400', warn:'bg-amber-400', error:'bg-rose-400' };
+  const textColors = { loading:'text-slate-400', ok:'text-emerald-300', warn:'text-amber-300', error:'text-rose-300' };
+  $('loc-status').innerHTML = `<span class="w-2 h-2 rounded-full ${colors[type]} ${type==='loading'?'pulse-dot':''}"></span><span class="${textColors[type]}">${msg}</span>`;
+}
 
-        // ===== CAMERA =====
-        async function toggleCamera() {
-            const toggleBtn = document.getElementById('toggleCameraBtn');
-            const captureBtn = document.getElementById('captureBtn');
-            const video = document.getElementById('cameraPreview');
+// ---------- Action buttons ----------
+document.querySelectorAll('[data-action]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!state.inRadius) { toast('Anda berada di luar radius lokasi', 'warn'); return; }
+    state.currentAction = btn.dataset.action;
+    $('selfie-action-label').textContent = `Presensi: ${state.currentAction}`;
+    openCamera();
+    showScreen('selfie-screen');
+  });
+});
 
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                stream = null;
-                video.classList.remove('active');
-                toggleBtn.textContent = 'Buka Kamera';
-                captureBtn.style.display = 'none';
-                return;
-            }
+// ---------- Camera ----------
+async function openCamera() {
+  resetSelfieUI();
+  try {
+    state.stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width:{ideal:720}, height:{ideal:720} },
+      audio: false
+    });
+    $('video').srcObject = state.stream;
+    $('cam-overlay').classList.add('hidden');
+  } catch(err) {
+    $('cam-overlay').textContent = 'Kamera tidak dapat diakses';
+    toast('Izinkan akses kamera', 'error');
+  }
+}
+function stopCamera() {
+  if (state.stream) {
+    state.stream.getTracks().forEach(t => t.stop());
+    state.stream = null;
+  }
+}
+function resetSelfieUI() {
+  $('video').classList.remove('hidden');
+  $('canvas').classList.add('hidden');
+  $('capture-btn').classList.remove('hidden');
+  $('retake-btn').classList.add('hidden');
+  $('submit-btn').classList.add('hidden');
+  $('cam-overlay').classList.remove('hidden');
+  $('cam-overlay').textContent = 'Memuat kamera...';
+  state.photoBase64 = null;
+}
 
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: { 
-                        facingMode: 'user',
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
-                    },
-                    audio: false
-                });
-                
-                video.srcObject = stream;
-                
-                // Set explicit width dan height untuk video element
-                video.width = 1280;
-                video.height = 720;
-                
-                // Pastikan autoplay dan playsinline berfungsi
-                video.setAttribute('autoplay', 'true');
-                video.setAttribute('playsinline', 'true');
-                video.setAttribute('muted', 'true');
-                
-                // Tunggu track video siap
-                stream.getVideoTracks()[0].onended = () => {
-                    stream = null;
-                    video.classList.remove('active');
-                    toggleBtn.textContent = 'Buka Kamera';
-                    captureBtn.style.display = 'none';
-                };
-                
-                // Play video dengan error handling
-                video.play().then(() => {
-                    video.classList.add('active');
-                    toggleBtn.textContent = 'Tutup Kamera';
-                    captureBtn.style.display = 'block';
-                }).catch(err => {
-                    showAlert('attendanceAlert', `Error memutar video: ${err.message}`, 'danger');
-                });
-            } catch (error) {
-                showAlert('attendanceAlert', `Error membuka kamera: ${error.message}. Pastikan Anda memberikan izin akses kamera.`, 'danger');
-            }
-        }
+$('cancel-selfie-btn').addEventListener('click', () => {
+  stopCamera();
+  showScreen('dashboard-screen');
+});
 
-        function capturePhoto() {
-            const video = document.getElementById('cameraPreview');
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0);
-            
-            canvas.toBlob((blob) => {
-                photoBlob = blob;
-                const preview = document.getElementById('photoPreview');
-                preview.src = URL.createObjectURL(blob);
-                preview.classList.add('active');
-                photoCaptured = true;
+$('capture-btn').addEventListener('click', () => {
+  const v = $('video'), c = $('canvas');
+  const size = Math.min(v.videoWidth, v.videoHeight);
+  c.width = size; c.height = size;
+  const ctx = c.getContext('2d');
+  const sx = (v.videoWidth - size)/2, sy = (v.videoHeight - size)/2;
+  // Mirror is via CSS; draw normally
+  ctx.save();
+  ctx.translate(size, 0); ctx.scale(-1,1);
+  ctx.drawImage(v, sx, sy, size, size, 0, 0, size, size);
+  ctx.restore();
+  const dataUrl = c.toDataURL('image/jpeg', 0.82);
+  state.photoBase64 = dataUrl.split(',')[1];
+  $('video').classList.add('hidden');
+  $('canvas').classList.remove('hidden');
+  $('capture-btn').classList.add('hidden');
+  $('retake-btn').classList.remove('hidden');
+  $('submit-btn').classList.remove('hidden');
+  stopCamera();
+});
 
-                // Stop camera
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                    stream = null;
-                }
-                video.classList.remove('active');
-                document.getElementById('toggleCameraBtn').textContent = 'Buka Kamera';
-                document.getElementById('captureBtn').style.display = 'none';
-                document.getElementById('retakeBtn').style.display = 'block';
-            });
-        }
+$('retake-btn').addEventListener('click', openCamera);
 
-        function retakePhoto() {
-            photoCaptured = false;
-            photoBlob = null;
-            document.getElementById('photoPreview').classList.remove('active');
-            document.getElementById('retakeBtn').style.display = 'none';
-            document.getElementById('toggleCameraBtn').textContent = 'Buka Kamera';
-            toggleCamera();
-        }
+$('submit-btn').addEventListener('click', async () => {
+  if (!state.photoBase64 || !state.location) { toast('Data belum lengkap', 'error'); return; }
+  $('submit-spin').classList.remove('hidden');
+  $('submit-label').textContent = 'Mengirim...';
+  $('submit-btn').disabled = true;
+  const payload = {
+    action: 'absen',
+    idPegawai: state.pegawai.idPegawai,
+    namaPegawai: state.pegawai.namaPegawai,
+    jabatan: state.pegawai.jabatan,
+    idSekolah: state.sekolah.idSekolah,
+    namaSekolah: state.sekolah.namaSekolah,
+    status: state.currentAction,
+    latitude: state.location.lat,
+    longitude: state.location.lng,
+    photoBase64: state.photoBase64
+  };
+  try {
+    // Use text/plain to avoid CORS preflight on Apps Script
+    const res = await fetch(state.gasUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.ok) {
+      $('sum-status').textContent = state.currentAction;
+      $('sum-time').textContent = new Date().toLocaleString('id-ID');
+      showScreen('success-screen');
+    } else {
+      toast(data.message || 'Gagal mengirim', 'error');
+    }
+  } catch(err) {
+    toast('Gagal terhubung ke server', 'error');
+  } finally {
+    $('submit-spin').classList.add('hidden');
+    $('submit-label').textContent = 'Kirim Presensi';
+    $('submit-btn').disabled = false;
+  }
+});
 
-        // ===== LOGIN =====
-        async function handleLogin() {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
+$('done-btn').addEventListener('click', () => {
+  state.photoBase64 = null;
+  state.currentAction = null;
+  showScreen('dashboard-screen');
+  updateLocation();
+});
 
-            if (!username || !password) {
-                showAlert('loginAlert', 'Username dan password harus diisi', 'danger');
-                return;
-            }
+// ---------- Init ----------
+function init() {
+  lucide.createIcons();
+  // Set default GAS URL if not stored
+  if (!state.gasUrl) {
+    state.gasUrl = 'https://script.google.com/macros/s/AKfycbzJhgHpoqrPm52Neh8dQ55ZTva914-XkwDuAT40I8fCE45ed5uYp8Cyl13X8rUCSTcr/exec';
+    localStorage.setItem('gasUrl', state.gasUrl);
+    showScreen('login-screen');
+  } else {
+    showScreen('login-screen');
+  }
+}
 
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        action: 'login',
-                        username: username,
-                        password: password
-                    })
-                });
+// Element SDK
+window.elementSdk && window.elementSdk.init({
+  defaultConfig: {},
+  onConfigChange: async () => {},
+  mapToCapabilities: () => ({ recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined }),
+  mapToEditPanelValues: () => new Map()
+});
 
-                const data = await response.json();
-
-                if (data.success) {
-                    currentUser = data.user;
-                    currentSchool = data.school;
-                    document.getElementById('loginUsername').value = '';
-                    document.getElementById('loginPassword').value = '';
-                    getLocation();
-                    navigateTo('locationSection');
-                } else {
-                    showAlert('loginAlert', data.message || 'Username atau password salah', 'danger');
-                }
-            } catch (error) {
-                showAlert('loginAlert', `Error: ${error.message}`, 'danger');
-            }
-        }
-
-        // ===== ATTENDANCE =====
-        async function submitAttendance() {
-            const attendanceType = document.getElementById('attendanceType').value;
-            const submitBtn = event.target;
-
-            if (!attendanceType) {
-                showAlert('attendanceAlert', 'Pilih tipe absensi terlebih dahulu', 'danger');
-                return;
-            }
-
-            if (!photoCaptured || !photoBlob) {
-                showAlert('attendanceAlert', 'Ambil foto selfie terlebih dahulu', 'danger');
-                return;
-            }
-
-            if (!userLocation) {
-                showAlert('attendanceAlert', 'Lokasi Anda belum terdeteksi', 'danger');
-                return;
-            }
-
-            // Validate location
-            const distance = calculateDistance(
-                userLocation.lat,
-                userLocation.lon,
-                parseFloat(currentSchool.latitude),
-                parseFloat(currentSchool.longitude)
-            );
-            const radiusMeters = parseFloat(currentSchool.radiusMeters) || 100;
-
-            if (distance > radiusMeters) {
-                showAlert('attendanceAlert', `Anda berada di luar zona absensi (${distance.toFixed(0)}m dari sekolah)`, 'danger');
-                return;
-            }
-
-            // Show loading state
-            submitBtn.disabled = true;
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Mengirim...';
-
-            try {
-                // Convert blob to base64
-                const reader = new FileReader();
-                reader.readAsDataURL(photoBlob);
-                
-                reader.onload = async function() {
-                    const photoBase64 = reader.result;
-                    const attendanceData = {
-                        action: 'submitAttendance',
-                        idPegawai: currentUser.id_pegawai,
-                        namaPegawai: currentUser.nama_pegawai,
-                        jabatan: currentUser.jabatan,
-                        idSekolah: currentUser.id_sekolah,
-                        namaSekolah: currentSchool.nama_sekolah,
-                        status: attendanceType,
-                        latitude: userLocation.lat,
-                        longitude: userLocation.lon,
-                        tanggal: new Date().toISOString().split('T')[0],
-                        waktu: new Date().toTimeString().split(' ')[0],
-                        photo: photoBase64
-                    };
-
-                    console.log('Mengirim data ke:', GAS_URL);
-                    console.log('Data keys:', Object.keys(attendanceData));
-
-                    try {
-                        const response = await fetch(GAS_URL, {
-                            method: 'POST',
-                            body: JSON.stringify(attendanceData)
-                        });
-
-                        console.log('Response status:', response.status);
-                        const data = await response.json();
-                        console.log('Response data:', data);
-
-                        if (data.success) {
-                            showAlert('attendanceAlert', `Absensi ${attendanceType} berhasil dikirim!`, 'success');
-                            photoCaptured = false;
-                            photoBlob = null;
-                            document.getElementById('attendanceType').value = '';
-                            document.getElementById('photoPreview').classList.remove('active');
-                            document.getElementById('retakeBtn').style.display = 'none';
-                            setTimeout(() => {
-                                goToHistory();
-                            }, 1500);
-                        } else {
-                            showAlert('attendanceAlert', data.message || 'Gagal mengirim absensi', 'danger');
-                        }
-                    } catch (error) {
-                        console.error('Fetch error detail:', error);
-                        showAlert('attendanceAlert', `Error: ${error.message}`, 'danger');
-                    } finally {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = originalText;
-                    }
-                };
-
-                reader.onerror = function() {
-                    showAlert('attendanceAlert', 'Error mengkonversi foto', 'danger');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                };
-            } catch (error) {
-                console.error('Error detail:', error);
-                showAlert('attendanceAlert', `Error: ${error.message}`, 'danger');
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
-        }
-
-        // ===== HISTORY =====
-        async function goToHistory() {
-            navigateTo('historySection');
-            
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        action: 'getHistory',
-                        idPegawai: currentUser.id_pegawai
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success && data.records) {
-                    const historyEl = document.getElementById('attendanceHistory');
-                    historyEl.innerHTML = '';
-
-                    if (data.records.length === 0) {
-                        historyEl.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Belum ada riwayat absensi</p>';
-                        return;
-                    }
-
-                    data.records.forEach(record => {
-                        const recordEl = document.createElement('div');
-                        recordEl.className = 'attendance-record';
-                        recordEl.innerHTML = `
-                            <h4>${record.tanggal}</h4>
-                            <p><strong>Waktu:</strong> ${record.waktu}</p>
-                            <p><strong>Status:</strong> <span class="status-badge ${record.status.toLowerCase()}">${record.status}</span></p>
-                            <p><strong>Lokasi:</strong> ${record.latitude}, ${record.longitude}</p>
-                        `;
-                        historyEl.appendChild(recordEl);
-                    });
-                }
-            } catch (error) {
-                showAlert('historyInfo', `Error: ${error.message}`, 'danger');
-            }
-        }
-
-        function goToAttendance() {
-            document.getElementById('attendanceType').value = '';
-            navigateTo('attendanceSection');
-        }
-
-        // ===== LOGOUT =====
-        function handleLogout() {
-            currentUser = null;
-            currentSchool = null;
-            userLocation = null;
-            photoCaptured = false;
-            photoBlob = null;
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                stream = null;
-            }
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('attendanceType').value = '';
-            document.getElementById('photoPreview').classList.remove('active');
-            document.getElementById('cameraPreview').classList.remove('active');
-            document.getElementById('toggleCameraBtn').textContent = 'Buka Kamera';
-            document.getElementById('captureBtn').style.display = 'none';
-            document.getElementById('retakeBtn').style.display = 'none';
-            navigateTo('loginSection');
-        }
-
-        // ===== DISPLAY INFO ON ATTENDANCE SCREEN =====
-        window.addEventListener('DOMContentLoaded', () => {
-            // Observer untuk update info ketika pindah ke attendance section
-            const originalNavigate = navigateTo;
-            window.navigateTo = function(sectionId) {
-                if (sectionId === 'attendanceSection' && currentUser && currentSchool) {
-                    document.getElementById('attendanceName').textContent = currentUser.nama_pegawai;
-                    document.getElementById('attendancePosition').textContent = currentUser.jabatan;
-                    document.getElementById('attendanceSchool').textContent = currentSchool.nama_sekolah;
-                    document.getElementById('schoolInfo').innerHTML = `
-                        <p><strong>Nama Sekolah:</strong> ${currentSchool.nama_sekolah}</p>
-                        <p><strong>Latitude:</strong> ${currentSchool.latitude}</p>
-                        <p><strong>Longitude:</strong> ${currentSchool.longitude}</p>
-                        <p><strong>Radius:</strong> ${currentSchool.radiusMeters}m</p>
-                    `;
-                }
-                originalNavigate(sectionId);
-            };
-        });
-    </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2b71ee90f97b14',t:'MTc3NzI2NzkyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+init();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2c04fa84e1ff7e',t:'MTc3NzI3Mzk1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
