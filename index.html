@@ -425,16 +425,20 @@
     <h1>📍 Absensi Pegawai</h1>
     <p>Yayasan Lembaga Miryam</p>
    </div>
-   <div class="content"><!-- SECTION: LOGIN -->
+   <div class="content">
+    <!-- SECTION: LOGIN -->
     <div class="section active" id="loginSection">
      <div class="alert alert-danger" id="loginAlert"></div>
-     <div class="form-group"><label>Username</label> <input type="text" id="loginUsername" placeholder="Masukkan username Anda">
+     <div class="form-group">
+      <label>Username</label> <input type="text" id="loginUsername" placeholder="Masukkan username Anda">
      </div>
-     <div class="form-group"><label>Password</label> <input type="password" id="loginPassword" placeholder="Masukkan password Anda">
+     <div class="form-group">
+      <label>Password</label> <input type="password" id="loginPassword" placeholder="Masukkan password Anda">
      </div><button onclick="handleLogin()">Login</button>
     </div><!-- SECTION: LOCATION CHECK -->
     <div class="section" id="locationSection">
-     <div class="location-status loading" id="locationStatus"><span class="status-icon">📍</span> <span id="locationStatusText">Mendeteksi lokasi Anda...</span>
+     <div class="location-status loading" id="locationStatus">
+      <span class="status-icon">📍</span> <span id="locationStatusText">Mendeteksi lokasi Anda...</span>
      </div>
      <div class="school-selector">
       <h3>Lokasi Sekolah</h3>
@@ -448,9 +452,11 @@
       <p><strong>Jabatan:</strong> <span id="attendancePosition"></span></p>
       <p><strong>Sekolah:</strong> <span id="attendanceSchool"></span></p>
      </div>
-     <div class="form-group"><label>Tipe Absensi</label> <select id="attendanceType"> <option value="">-- Pilih Tipe Absensi --</option> <option value="Hadir">Masuk Kerja (Hadir)</option> <option value="Pulang">Pulang Kerja (Pulang)</option> </select>
+     <div class="form-group">
+      <label>Tipe Absensi</label> <select id="attendanceType"> <option value="">-- Pilih Tipe Absensi --</option> <option value="Hadir">Masuk Kerja (Hadir)</option> <option value="Pulang">Pulang Kerja (Pulang)</option> </select>
      </div>
-     <div class="form-group"><label>Ambil Foto Selfie</label>
+     <div class="form-group">
+      <label>Ambil Foto Selfie</label>
       <video id="cameraPreview" class="camera-preview"></video><img id="photoPreview" class="photo-preview"> <button type="button" class="btn-secondary" id="toggleCameraBtn" onclick="toggleCamera()">Buka Kamera</button> <button type="button" class="btn-secondary" onclick="capturePhoto()" style="display: none;" id="captureBtn">Ambil Foto</button> <button type="button" class="btn-secondary" onclick="retakePhoto()" style="display: none;" id="retakeBtn">Ambil Ulang</button>
      </div><button class="btn-success" onclick="submitAttendance()">Kirim Absensi</button> <button class="btn-secondary" onclick="goToHistory()">Riwayat Absensi</button> <button class="btn-secondary" onclick="handleLogout()">Logout</button>
     </div><!-- SECTION: HISTORY -->
@@ -580,18 +586,34 @@
                     },
                     audio: false
                 });
+                
                 video.srcObject = stream;
                 
-                // Tunggu video siap sebelum menampilkan
-                video.onloadedmetadata = () => {
-                    video.play().catch(err => {
-                        console.error('Error playing video:', err);
-                    });
+                // Set explicit width dan height untuk video element
+                video.width = 1280;
+                video.height = 720;
+                
+                // Pastikan autoplay dan playsinline berfungsi
+                video.setAttribute('autoplay', 'true');
+                video.setAttribute('playsinline', 'true');
+                video.setAttribute('muted', 'true');
+                
+                // Tunggu track video siap
+                stream.getVideoTracks()[0].onended = () => {
+                    stream = null;
+                    video.classList.remove('active');
+                    toggleBtn.textContent = 'Buka Kamera';
+                    captureBtn.style.display = 'none';
                 };
                 
-                video.classList.add('active');
-                toggleBtn.textContent = 'Tutup Kamera';
-                captureBtn.style.display = 'block';
+                // Play video dengan error handling
+                video.play().then(() => {
+                    video.classList.add('active');
+                    toggleBtn.textContent = 'Tutup Kamera';
+                    captureBtn.style.display = 'block';
+                }).catch(err => {
+                    showAlert('attendanceAlert', `Error memutar video: ${err.message}`, 'danger');
+                });
             } catch (error) {
                 showAlert('attendanceAlert', `Error membuka kamera: ${error.message}. Pastikan Anda memberikan izin akses kamera.`, 'danger');
             }
@@ -831,5 +853,5 @@
             };
         });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2b2775129fff8e',t:'MTc3NzI2NDg3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2b412d07b85c2d',t:'MTc3NzI2NTkzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
