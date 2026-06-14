@@ -880,7 +880,8 @@
      
      <!-- MONTHLY RECAP CARD -->
      <div class="card">
-      <div class="card-title"><i data-lucide="calendar"></i> Rekap Presensi Mulai 15 Juni</div>
+      <div class="card-title"><i data-lucide="calendar"></i> Rekap Presensi Bulanan
+      </div>
       <div class="recap-grid">
        <div class="recap-item">
         <div class="recap-number" id="recapHadir">
@@ -934,7 +935,7 @@
   </div>
   <script>
         // CONFIG
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbx7IY9SOLKPF79VMkdTouJd_qvGtr8KhE7KBnepALHG4YCdigYOrkVu6UvvSGkz4Pvz/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbztjeTDc--dJkQgzckFm46Uy-u7z1GSAew_ViahXVaYKkKW48gAnEVz-3bmXno1E_xJ/exec";
         let currentUser = null;
         let currentSchool = null;
         let currentLocation = null;
@@ -1774,9 +1775,7 @@ function closeCustomAlert() {
                 console.log('Recap result:', result);
 
                 if (result.success) {
-                    // Hadir = Datang records (Terlambat + Tepat Waktu)
-                    const hadir = (result.terlambat || 0) + (result.tepat || 0);
-                    document.getElementById('recapHadir').textContent = hadir;
+                    document.getElementById('recapHadir').textContent = result.hadir !== undefined ? result.hadir : 0;
                     document.getElementById('recapTerlambat').textContent = result.terlambat !== undefined ? result.terlambat : 0;
                     document.getElementById('recapPulangCepat').textContent = result.pulangCepat !== undefined ? result.pulangCepat : 0;
                     document.getElementById('recapIzinKeluar').textContent = result.izinKeluar !== undefined ? result.izinKeluar : 0;
