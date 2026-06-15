@@ -4,6 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presensi YLM</title>
+      <!-- Konfigurasi PWA dan Logo Screen untuk HP -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e40af">
+    
+    <!-- Ikon untuk Google Chrome & Android -->
+    <link rel="icon" type="image/png" sizes="192x192" href="Logo 192YLM.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="Logo 512YLM.png">
+    
+    <!-- Ikon khusus untuk Safari & iPhone/iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="Logo 180YLM.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="YLM Presensi">
+
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
@@ -703,7 +717,9 @@
    <div class="header" id="header" style="display: none;">
     <div class="header-content">
      <div class="header-left">
-      <div class="logo-container"><img src="https://via.placeholder.com/50/1e40af/ffffff?text=YLM" alt="YLM Logo" class="logo-img">
+      <div class="logo-container">
+       <img src="logo-ylm-180.png" alt="YLM Logo" class="logo-img">
+
       </div>
       <div class="employee-info">
        <div class="employee-name" id="employeeName">
