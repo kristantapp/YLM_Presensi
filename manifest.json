@@ -1,8 +1,8 @@
 {
-  "name": "YLM Presensi",
-  "short_name": "YLM Presensi",
-  "description": "Aplikasi Presensi YLM",
-  "start_url": "/index.html",
+  "name": "Presensi YLM",
+  "short_name": "Presensi YLM",
+  "description": "Presensi YLM",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#1e40af",
   "theme_color": "#1e40af",
