@@ -21,8 +21,8 @@
       "purpose": "any"
     },
     {
-      "src": "/Logo 192YLM.png",
-      "sizes": "192x192",
+      "src": "/Logo 512YLM.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
