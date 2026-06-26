@@ -1,11 +1,11 @@
-const CACHE_NAME = 'ylm-presensi-v4';
+const CACHE_NAME = 'ylm-presensi-v5';
 const urlsToCache = [
   '/',                // Membaca halaman utama otomatis di Vercel
   '/index.html',
   '/manifest.json',
-  '/Logo 192YLM.png',
-  '/Logo 512YLM.png',
-  '/Logo 180YLM.png'
+  '/logo_192_YLM.png',
+  '/logo_512_YLM.png',
+  '/logo_180_YLM.png'
 ];
 
 // Install Service Worker dan simpan aset ke cache browser
