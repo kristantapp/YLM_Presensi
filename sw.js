@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ylm-presensi-v6';
+const CACHE_NAME = 'ylm-presensi-v7';
 const urlsToCache = [
   '/',                // Membaca halaman utama otomatis di Vercel
   '/index.html',
